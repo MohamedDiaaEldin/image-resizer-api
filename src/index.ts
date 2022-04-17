@@ -1,34 +1,45 @@
 import express from 'express'
-import { sharp_image } from "./utilities/sharp_test";
+import { resize_image } from "./utilities/sharp_images";
 import { is_image_cashed, is_image_there } from './utilities/search_images';
+import { get_cash_path } from './utilities/build_path';
 
 const app = express()
 const port = 5000
 
-// console.log(typeof(sharp_image('./images/encenadaport.jpg', 50, 50, 'test.jpg')))
-// sharp_image('./images/encenadaport.jpg', 50, 50, 'test.jpg').then(result=>{
-//     console.log(result)
-// }).catch( error=> console.log(error))
-
 
 app.get('/image', (req: express.Request, res: express.Response) => {
-    // check if valid request 
-    // check if image is found
-     // if cashed with the same size 
-          //return it from cash folder 
-      // else 
-          //resize it and save to the cashed folder 
-          // return resized images  
-    is_image_there((req.query.name as unknown) as string + ".jpg").then(result => {
-        const cashed_path = (req.query.name as unknown) as string + ".jpg"
-        res.send("found")
+
+    const image_name = (req.query.name as unknown) as string
+    const image_width:number = Number(req.query.width )
+    const image_height:number = Number(req.query.height)
+    
+
+    is_image_there(image_name).then(main_image_path => {
+        is_image_cashed(image_name, image_width, image_height).then(cashed_image_path => {
+            /// reutrn cashed image
+            console.log("there is a cashed image")
+            res.sendFile((cashed_image_path as unknown) as string)
+        }).catch(r => { // else
+            console.log('no cashed image')
+            // resize and save to cash                 
+            resize_image(image_name, image_width, image_height).then(is_done => {                
+                res.sendFile(get_cash_path(image_name, image_width, image_height))
+
+            }).catch(err => {
+                res.json({
+                    status_code: 500,
+                    message: "server error"
+                })
+            })
+
+        })
+
     }).catch(error => {
         res.json({
             status_code: 404,
             message: "image not found"
         })
     })
-    // res.send('hello')
 })
 
 app.listen(port, () => {

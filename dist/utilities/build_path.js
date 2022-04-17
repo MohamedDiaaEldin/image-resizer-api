@@ -14,5 +14,4 @@ var get_main_path = function (image_name) {
     return path.join(abslout_path, '/images/main/', image_name + ".jpg");
 };
 exports.get_main_path = get_main_path;
-console.log((0, exports.get_cash_path)("test", 10, 20));
-console.log((0, exports.get_main_path)("test"));
+// console.log(get_main_path("test"))
