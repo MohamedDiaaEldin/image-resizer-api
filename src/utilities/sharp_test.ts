@@ -14,8 +14,6 @@ export const sharp_image = (image_path: string, width: number, height: number, d
             else{
                 resolve(true)
             }
-
-
         })
     })
     return pro
