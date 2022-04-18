@@ -2,12 +2,22 @@ import express from 'express'
 import { resize_image } from "./utilities/sharp_images";
 import { is_image_cashed, is_image_there } from './utilities/search_images';
 import { get_cash_path } from './utilities/build_path';
-
+import { is_valid_image_inputs } from './utilities/validation';
 const app = express()
 const port = 5000
 
 
+
+
 app.get('/image', (req: express.Request, res: express.Response) => {
+
+    // validate end point params 
+    if(! is_valid_image_inputs(req)){
+        return res.json({
+            "status_code":400,
+            "message":"bad request"
+        })
+    }
 
     const image_name = (req.query.name as unknown) as string
     const image_width:number = Number(req.query.width )
@@ -19,10 +29,12 @@ app.get('/image', (req: express.Request, res: express.Response) => {
             /// reutrn cashed image
             console.log("there is a cashed image")
             res.sendFile((cashed_image_path as unknown) as string)
+
         }).catch(r => { // else
-            console.log('no cashed image')
+            console.log('not cashed image')
             // resize and save to cash                 
-            resize_image(image_name, image_width, image_height).then(is_done => {                
+            resize_image(image_name, image_width, image_height).then(is_done => {   
+                /// return new cashed image             
                 res.sendFile(get_cash_path(image_name, image_width, image_height))
 
             }).catch(err => {
