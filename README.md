@@ -22,7 +22,8 @@ run express server
 
 ## End point
 
-. ** http://localhost:5000/image?name=santamonica&width=600&height=400 **
+ http://localhost:5000/image?name=santamonica&width=600&height=400 
+ 
    - success request
       <pre>
         200 status code with resized image 
