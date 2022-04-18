@@ -7,7 +7,8 @@
     "start": "ts-node-dev ./src/index.ts",
     "build": "rm -rf ./dist/* && tsc --build",
     "lint": "eslint . --ext .ts",
-    "prettier": "eslint . --ext .ts --fix",
+    "prettier_eslint": "eslint . --ext .ts --fix",
+    "prettier": "prettier --write ./src/**/*.ts",
     "tsc": "tsc",
     "test": "jasmine-ts"
   },
@@ -32,6 +33,7 @@
     "jasmine": "^3.10.0",
     "jasmine-spec-reporter": "^7.0.0",
     "jasmine-ts": "^0.4.0",
+    "prettier": "^2.6.2",
     "supertest": "^6.1.6",
     "ts-node": "^9.1.1",
     "ts-node-dev": "^1.1.8",

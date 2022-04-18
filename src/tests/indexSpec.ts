@@ -6,31 +6,34 @@ import axios from 'axios';
 const request = supertest(app);
 
 describe('test index express endpoint', () => {
-
-  it('test end point status code response', (done: DoneFn) => {
-    // test status code
-    request.get('/image').then((response) => {
-      expect(response.status).toBe(200);
+    it('test end point status code response', (done: DoneFn) => {
+        // test status code
+        request.get('/image').then((response) => {
+            expect(response.status).toBe(200);
+        });
+        done();
     });
-    done();
-  });
 
-  it('test not valid parms of image end point ', (done: DoneFn) => {
-    // test status code
-    axios.get('http://localhost:5000/image?name=car?w=10').then(response => {
-      expect(response.data.status_code).toBe(400);
-      expect(response.data.message).toEqual('bad request');
+    it('test not valid parms of image end point ', (done: DoneFn) => {
+        // test status code
+        axios
+            .get('http://localhost:5000/image?name=car?w=10')
+            .then((response) => {
+                expect(response.data.status_code).toBe(400);
+                expect(response.data.message).toEqual('bad request');
+            });
+        done();
     });
-    done();
-  });
-  it('test valid parms of image end point ', (done: DoneFn) => {
-    // test status code
-    axios.get('http://localhost:5000/image?name=car&width=10&height=20').then(response => {
-      expect(response.data.status_code).not.toBe(400);
-      expect(response.data.message).not.toEqual('bad request');
+    it('test valid parms of image end point ', (done: DoneFn) => {
+        // test status code
+        axios
+            .get('http://localhost:5000/image?name=car&width=10&height=20')
+            .then((response) => {
+                expect(response.data.status_code).not.toBe(400);
+                expect(response.data.message).not.toEqual('bad request');
+            });
+        done();
     });
-    done();
-  });
 
-  // end of describe
+    // end of describe
 });
