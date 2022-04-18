@@ -18,6 +18,7 @@ run express server
 
 ## project start point 
     [index.ts](./src/index.ts)
+    [index.ts](src/index.ts)
 
 ## End point
 
