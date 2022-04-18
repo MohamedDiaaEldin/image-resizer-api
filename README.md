@@ -18,7 +18,7 @@ to install project modulus
    
    - success request
       <pre>
-         status code with resized image 
+        200 status code with resized image 
       </pre>
    - bad request params request
       <pre>
