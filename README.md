@@ -6,16 +6,22 @@
    npm version  8.6.0 
    node version 16.14.2
 </pre>
-to install project modulus
+install project modulus
 <pre>
    npm install 
 </pre>
 
+run express server
+<pre>
+   npm run start 
+</pre>
 
-## End points
+## project start point 
+    [index.ts](./src/index.ts)
 
-1. **/image?name=image_name&width=10&height=10**
-   
+## End point
+
+. ** http://localhost:5000/image?name=santamonica&width=600&height=400 **
    - success request
       <pre>
         200 status code with resized image 
